@@ -20,6 +20,7 @@ df = df.sort_index()
 # ------------------------------------
 
 df.info()
+df.describe()
 df.plot(style=".", figsize=(15, 5), color=palette, title="AEP")
 
 # Suma diaria / semanal (semana empezando lunes) / mensual (inicio de mes)
