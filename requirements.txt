@@ -1,0 +1,10 @@
+fastapi
+uvicorn
+pandas
+numpy
+matplotlib
+xgboost
+sktime
+sklearn
+seaborn
+pydantic>=2

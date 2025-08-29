@@ -1,0 +1,20 @@
+[
+  "hour",
+  "dayofweek",
+  "quarter",
+  "month",
+  "year",
+  "dayofyear",
+  "AEP_MW_lag_1",
+  "AEP_MW_lag_24",
+  "AEP_MW_lag_168",
+  "volatility_24h",
+  "volatility_168h",
+  "roll8_mean",
+  "roll24_mean",
+  "roll168_mean",
+  "roll24_min",
+  "roll24_max",
+  "roll168_min",
+  "roll168_max"
+]

@@ -1,0 +1,5 @@
+{
+  "target": "AEP_MW",
+  "min_history_hours": 168,
+  "freq": "H"
+}
