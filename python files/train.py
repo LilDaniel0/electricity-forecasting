@@ -3,10 +3,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 import xgboost as xgb
-from sktime.forecasting.base import ForecastingHorizon
-from sktime.forecasting.model_selection import temporal_train_test_split
-from sktime.forecasting.theta import ThetaForecaster
-from sktime.utils.plotting import plot_series
 from sklearn.metrics import mean_absolute_percentage_error, root_mean_squared_error
 import json
 
@@ -81,14 +77,11 @@ mean_absolute_percentage_error(y_test, X_test["prediction"])
 
 
 # === SERIALIZAR ===
-# 1) Modelo en formato nativo (seguro)
 reg.save_model("model/xgb_model.json")
 
-# 2) Orden exacto de columnas
 with open("model/feature_order.json", "w") as f:
     json.dump(list(X_train.columns), f, indent=2)
 
-# 3) Config simple (por si necesitas validar longitud de historial)
 config = {"target": "AEP_MW", "min_history_hours": 168, "freq": "H"}  # por usar lag_168
 with open("model/config.json", "w") as f:
     json.dump(config, f, indent=2)
@@ -104,17 +97,6 @@ pd.DataFrame(
 # Ver columnas sospechosas para leaked de informacion
 bad = [c for c in X_train.columns if ("AEP_MW" in c) or ("prediction" in c)]
 print("Cols sospechosas:", bad)  # debe imprimir lista vacía
-
-
-######################### Theta forecasting #########################
-df_monthly = df.resample("M").mean()
-y = df_monthly[["AEP_MW"]]
-
-y_temp_train, y_temp_test = temporal_train_test_split(y, train_size=0.8)
-fh = ForecastingHorizon(y_temp_test.index, is_relative=False)
-forecaster = ThetaForecaster(sp=12)
-forecaster.fit(y_temp_train)
-
 
 ######################################################################
 ########### -------- VISUALIZATION OF PREDICTION ---------############

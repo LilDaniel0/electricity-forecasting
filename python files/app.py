@@ -9,13 +9,13 @@ import json
 from pathlib import Path
 from features_creation import make_features_for_next_step
 
-ARTIFACTS = Path("../model")
+MODEL = Path("../model/XBGRegressor")
 
 # === cargar artefactos al iniciar ===
 model = xgb.XGBRegressor()
-model.load_model(ARTIFACTS / "xgb_model.json")
-feature_order = json.load(open(ARTIFACTS / "feature_order.json"))
-config = json.load(open(ARTIFACTS / "config.json"))
+model.load_model(MODEL / "xgb_model.json")
+feature_order = json.load(open(MODEL / "feature_order.json"))
+config = json.load(open(MODEL / "config.json"))
 MIN_HIST = int(config.get("min_history_hours", 168))
 
 app = FastAPI(title="AEP Forecasting API", version="0.1")
