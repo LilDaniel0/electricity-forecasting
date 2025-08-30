@@ -9,7 +9,7 @@ import json
 from pathlib import Path
 from features_creation import make_features_for_next_step
 
-ARTIFACTS = Path("artifacts")
+ARTIFACTS = Path("../model")
 
 # === cargar artefactos al iniciar ===
 model = xgb.XGBRegressor()
