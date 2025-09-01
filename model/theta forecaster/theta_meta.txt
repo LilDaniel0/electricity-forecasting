@@ -1,0 +1,3 @@
+resample=M (mean)
+index=Period[M]
+model=Theta(sp=12)

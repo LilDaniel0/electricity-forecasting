@@ -1,0 +1,22 @@
+[project]
+name = "electricity-forecasting"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "catboost>=1.2.8",
+    "fastapi>=0.116.1",
+    "ipykernel>=6.30.1",
+    "jupyter>=1.1.1",
+    "matplotlib>=3.10.6",
+    "numpy>=2.3.2",
+    "pandas>=2.3.2",
+    "plotly>=6.3.0",
+    "scikit-learn>=1.7.1",
+    "seaborn>=0.13.2",
+    "sktime>=0.38.5",
+    "statsmodels>=0.14.5",
+    "uvicorn[standard]>=0.35.0",
+    "xgboost>=3.0.4",
+]
