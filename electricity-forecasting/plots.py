@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 # configuracion inicial---------------
-df = pd.read_pickle("data/AEP_hourly_features.pkl")
+df = pd.read_pickle("../data/AEP_hourly_features.pkl")
 palette = sns.color_palette()
 plt.style.use("fivethirtyeight")
 

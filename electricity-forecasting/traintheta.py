@@ -7,15 +7,12 @@ from sktime.forecasting.base import ForecastingHorizon
 from sktime.forecasting.model_selection import temporal_train_test_split
 from sktime.utils.plotting import plot_series
 
-# Configuracion inicial ---------------------
 MODEL = Path("../model/theta forecaster")
+# Configuracion inicial ---------------------
 
-df = pd.read_csv("../data/AEP_hourly.csv", parse_dates=["Datetime"]).set_index(
-    "Datetime"
-)
+df = pd.read_pickle("../data/AEP_hourly_features.pkl")
 y = df["AEP_MW"].resample("M").mean()
 y.index = y.index.to_period("M")
-
 
 #################################################################
 ################# Entrenamiento del modelo ######################
@@ -27,5 +24,3 @@ joblib.dump(forecaster, MODEL / "theta_forecaster.joblib")
 (MODEL / "theta_meta.txt").write_text(
     "resample=M (mean)\nindex=Period[M]\nmodel=Theta(sp=12)\n"
 )
-
-print("✅ Guardado model/theta_forecaster.joblib")

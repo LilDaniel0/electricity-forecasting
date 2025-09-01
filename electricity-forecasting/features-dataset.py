@@ -8,8 +8,6 @@ import matplotlib.pyplot as plt
 df = pd.read_csv("../data/AEP_hourly.csv", parse_dates=["Datetime"]).set_index(
     "Datetime"
 )
-df = df.sort_index()
-
 #####################################################################
 ############# ----------- FEATURE CREATION -------------#############
 #####################################################################
