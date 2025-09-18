@@ -1,8 +1,5 @@
 # features.py
 import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
-
 
 # configuracion inicial---------------
 df = pd.read_csv("../data/AEP_hourly.csv", parse_dates=["Datetime"]).set_index(
