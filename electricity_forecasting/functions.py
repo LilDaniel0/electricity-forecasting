@@ -1,14 +1,18 @@
 #####################################################################
-############# ----------- FEATURE CREATION -------------#############
+################## ----------- FUNCTIONS -------------###############
 #####################################################################
 import pandas as pd
+import matplotlib.pyplot as plt
+from sktime.forecasting.theta import ThetaForecaster
 
 
-def Preprocess(df):
+def Preprocess(df, resample: str):
 
-    df["Datetime"] = pd.to_datetime(df["Datetime"], errors="coerce")
-    df = df.set_index("Datetime").resample("H").mean()
-    df = df.rename(columns={df.columns[0]: "target"})
+    df = df.set_index("Datetime")
+    df.index = pd.to_datetime(df.index)
+    df = df.rename(columns={df.columns[0]: "target"}).sort_index()
+    df.index = df.index.resample(resample).mean()
+    df.index = df.index.to_period(resample)
     return df
 
 
@@ -36,3 +40,27 @@ def Timefeature_creation(df):
     df["roll168_max"] = df["target"].shift(1).rolling(168).max()
 
     return df
+
+
+def Regressor_split(df, date_test, date_val):
+
+    split_test = date_test  # Ejemplo: "2017-01-01"
+    split_val = date_val  # Ejemplo: "2016-09-01"
+
+    train = df[df.index < split_val]
+    val = df[(df.index < split_test) & (df.index >= split_val)]
+    test = df[df.index >= split_test]
+
+    # Visualizar como se hizo el split
+    fig, ax = plt.subplots(figsize=(10, 5))
+    train.plot(ax=ax)
+    val.plot(ax=ax)
+    test.plot(ax=ax)
+    plt.legend(["train", "validation", "test"])
+    plt.show()
+
+    X_train, y_train = train.drop(columns="target"), train["target"]
+    X_val, y_val = val.drop(columns="target"), val["target"]
+    X_test, y_test = test.drop(columns="target"), test["target"]
+
+    return X_train, y_train, X_val, y_val, X_test, y_test
