@@ -5,6 +5,9 @@ temporal = Path("data/to_predict")
 
 
 st.title("Energy Predictor")
+st.markdown("Make your predictions here!")
+
+st.divider()
 
 with st.sidebar:
     if st.button("clear"):
