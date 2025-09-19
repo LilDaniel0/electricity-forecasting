@@ -83,4 +83,5 @@ def Theta_prediction(df, train_size: int, sp: int):
     prediction.plot(ax=ax)
     plt.legend(["real", "prediction"])
     plt.title("Full DataFrame vs Theta Prediction")
-    plt.show()
+
+    return fig

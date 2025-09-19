@@ -1,7 +1,13 @@
 import streamlit as st
 from pathlib import Path
+import pandas as pd
+import electricity_forecasting.functions as fc
 
-temporal = Path("data/to_predict")
+data = Path("data/to_predict")
+
+
+# Session state
+st.session_state.file_uploaded = False
 
 
 st.title("Energy Predictor")
@@ -11,10 +17,11 @@ st.divider()
 
 with st.sidebar:
     if st.button("clear"):
-        items = list(temporal.iterdir())
+        items = list(data.iterdir())
         for item in items:
             try:
                 item.unlink()
+                st.session_state.file_uploaded = False
             except Exception as e:
                 st.error(f"There's an error: {e}")
 
@@ -23,10 +30,14 @@ file_uploader = st.file_uploader(
     "Upload the CSV file that contais the energy information", type=["csv"]
 )
 if file_uploader is not None:
-    with open(temporal / "temporal.csv", "wb") as f:
+    with open(data / "data.csv", "wb") as f:
         f.write(file_uploader.getvalue())
+        st.session_state.file_uploaded = True
 
 
-# Session state
-if "uploaded_csv" not in st.session_state:
-    st.session_state.uploaded_csv = None
+if st.session_state.file_uploaded is True:
+    if st.button("Press me to get the Prediction"):
+        df = pd.read_csv(data / "data.csv")
+        df = fc.Preprocess(df, "M")
+        fig = fc.Theta_prediction(df, 0.8, 12)
+        st.pyplot(fig)
