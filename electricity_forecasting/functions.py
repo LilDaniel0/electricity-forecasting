@@ -2,10 +2,12 @@
 ################## ----------- FUNCTIONS -------------###############
 #####################################################################
 import pandas as pd
+import numpy as np
 import matplotlib.pyplot as plt
 from sktime.forecasting.theta import ThetaForecaster
 from sktime.forecasting.base import ForecastingHorizon
 from sktime.forecasting.model_selection import temporal_train_test_split
+import time
 
 
 def Preprocess(df, resample: str):
@@ -85,3 +87,9 @@ def Theta_prediction(df, train_size: int, sp: int):
     plt.title("Full DataFrame vs Theta Prediction")
 
     return fig
+
+
+def stream_data(text):
+    for word in text.split(" "):
+        yield word + " "
+        time.sleep(0.03)
